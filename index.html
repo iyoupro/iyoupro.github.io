@@ -87,6 +87,36 @@
 <div class="row mb-3">
 
 <div class="col-12 col-md-8 offset-md-2">
+    <a href="/2019/06/29/Rail-Fence-Cipher/" class="h4" style="font-weight: 700;">Rails Fence Cipher</a>
+    
+      <p class="mb-1">Rails Fence Cipher
+这是百度百科对栅栏密码的解释，通过这种方式我们对明文：HACK 4 FUN 进行栅栏为2的加密
+去掉空格后为：HACK4FUN
+将明文分成两个一组：HA CK 4F UN
+取出每组的第一个元素：HC4U
+再取出每组的第二个元素：AKFN
+连接起来得到密码：HC4UAKFN
+然而在解题过程中，通过这种方式解密的并不能拿到flag，在查阅资料的过程中发现维基百科中对该密码的解释与百度百科并不同
+
+假设我们对明文：HACK 4 FUN进行栅栏为3的加密
+去掉空格后为：HACK4FUN
+对明文采用rails(波浪)的形式书写，如下
+    H...4...
+   ...</p>
+    
+    
+      <p>
+        <i class="iconfont icon-riqi2"></i>&nbsp;2019-06-29
+        &nbsp;
+        
+      </p>
+    
+</div>
+</div>
+
+<div class="row mb-3">
+
+<div class="col-12 col-md-8 offset-md-2">
     <a href="/2019/06/28/hello-world/" class="h4" style="font-weight: 700;">Hello World</a>
     
       <p class="mb-1">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
