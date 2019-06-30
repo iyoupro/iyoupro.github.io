@@ -310,13 +310,56 @@ JOE TEXT, I 
 <p>mov ah,4ch</p>
 <p>int 21h</p>
 <p>end start</p>
-<p>A、程序执行结束后，second的值是？</p>
-<p>*<em>1234512345 *</em></p>
-<p>B、简单描述程序的执行过程</p>
-<p>​    si =&gt; 源串指针</p>
+<h4 id="A、程序执行结束后，second的值是？"><a href="#A、程序执行结束后，second的值是？" class="headerlink" title="A、程序执行结束后，second的值是？"></a>A、程序执行结束后，second的值是？</h4><p>*<em>1234512345 *</em></p>
+<h4 id="B、简单描述程序的执行过程"><a href="#B、简单描述程序的执行过程" class="headerlink" title="B、简单描述程序的执行过程"></a>B、简单描述程序的执行过程</h4><p>​    si =&gt; 源串指针</p>
 <p>​    di =&gt; 目标串指针       </p>
 <p>​    first长度为5，当cx=5时，second的值为“12345”，所以最后si指向second，结果为1234512345</p>
+<h3 id="2、分析下面程序段，回答指定问题："><a href="#2、分析下面程序段，回答指定问题：" class="headerlink" title="2、分析下面程序段，回答指定问题："></a>2、分析下面程序段，回答指定问题：</h3><p>​             xor     al,al</p>
+<p>​             call    subrout</p>
+<p>​             mov     bl,al</p>
+<p>​             call    subrout</p>
+<p>​             rcr     al,1</p>
+<p>subrout     proc    near</p>
+<p>​             not     al</p>
+<p>​             js      next</p>
+<p>​             stc ；设置cf为1</p>
+<p> next:       ret</p>
+<p> subrout     endp</p>
+<h4 id="A、程序运行后，AL和BL的值？写出理由"><a href="#A、程序运行后，AL和BL的值？写出理由" class="headerlink" title="A、程序运行后，AL和BL的值？写出理由"></a>A、程序运行后，AL和BL的值？写出理由</h4><p><strong>AL=07FH   ，BL=0FFH</strong>   </p>
+<h3 id="3、分析下面的程序，回答指定的问题。"><a href="#3、分析下面的程序，回答指定的问题。" class="headerlink" title="3、分析下面的程序，回答指定的问题。"></a>3、分析下面的程序，回答指定的问题。</h3><p>dat1      db   0,1,2,3,4,5,6,7,8,9</p>
+<p>dat2      db   5 dup(?)</p>
+<p>​                    …</p>
+<p>​                   mov  cx,5</p>
+<p>​                   mov  bx,5</p>
+<p>​                   mov  si,0</p>
+<p>​                   mov  di,0</p>
+<p>next:                   mov  al,dat1[bx+si]</p>
+<p>​                   mov  dat2[di],al</p>
+<p>​                   inc  si</p>
+<p>​                   inc  di</p>
+<p>​                   loop next</p>
+<h4 id="A、程序执行后，DAT2内容是什么？"><a href="#A、程序执行后，DAT2内容是什么？" class="headerlink" title="A、程序执行后，DAT2内容是什么？"></a>A、程序执行后，DAT2内容是什么？</h4><p>56789</p>
+<h4 id="B、如果要完成将dat1中，偶数传递到dat2中，程序如何修改？"><a href="#B、如果要完成将dat1中，偶数传递到dat2中，程序如何修改？" class="headerlink" title="B、如果要完成将dat1中，偶数传递到dat2中，程序如何修改？"></a>B、如果要完成将dat1中，偶数传递到dat2中，程序如何修改？</h4><pre><code>dat1      db   0,1,2,3,4,5,6,7,8,9
 
+dat2      db   5 dup(?)
+
+​mov  cx,5
+
+​mov  bx,0
+
+​mov  di,0
+
+next:    mov  al,dat1[bx]
+
+​mov  dat2[di],al
+
+​inc    bx
+
+​inc    bx
+
+​inc   di
+
+​loop next</code></pre>
                 <hr>
                 <div>
                     <p>
