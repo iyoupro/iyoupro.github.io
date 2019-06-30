@@ -154,6 +154,41 @@ exit:
 
         mov ax, 4c00h
         int 21h
+end start</code></pre><h3 id="3、数据段有字符串s，长度使用符号常量L，写程序统计其中包含多少个x字符，统计结果值放在变量count"><a href="#3、数据段有字符串s，长度使用符号常量L，写程序统计其中包含多少个x字符，统计结果值放在变量count" class="headerlink" title="3、数据段有字符串s，长度使用符号常量L，写程序统计其中包含多少个x字符，统计结果值放在变量count"></a>3、数据段有字符串s，长度使用符号常量L，写程序统计其中包含多少个x字符，统计结果值放在变量count</h3><h3 id="4、试设计程序求出下列数组元素中的最大值和最小值，并和最后一个数据交换"><a href="#4、试设计程序求出下列数组元素中的最大值和最小值，并和最后一个数据交换" class="headerlink" title="4、试设计程序求出下列数组元素中的最大值和最小值，并和最后一个数据交换"></a>4、试设计程序求出下列数组元素中的最大值和最小值，并和最后一个数据交换</h3><p>设数据段为：</p>
+<p>DATA   SEGMENT</p>
+<p>ARRAY  DW   -3，0，20，900，587，-623，777，234，-34，-56</p>
+<p>COUNT  DB   $-ARRAY</p>
+<p>MAXAY  DW   ?   ;存放最大值</p>
+<p>MINAY  DW   ?   ;存放最小值</p>
+<p>绘制程序的流程图，写出这个程序</p>
+<pre><code>start:
+    mov ax, @data
+    mov ds, ax
+    mov ax, count
+    shr ax, 1
+    mov cx, ax
+    mov si, 0
+    mov MAXAY, 0
+    mov MINAY, FFh
+
+next:
+    mov bx, MAXAY
+    cmp bx, appay[si]
+    jnb max1
+    mov bx, MINAY
+    cpm bx, appay[si]
+    jna min1
+
+max1:
+    mov ax,array[si]
+    mov MAXAY, ax
+
+min1:
+    mov ax,array[si]
+    mov MINAY, ax
+
+    mov ah, 4ch
+    int 21h
 end start</code></pre><h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><h3 id="1、程序代码如下："><a href="#1、程序代码如下：" class="headerlink" title="1、程序代码如下："></a>1、程序代码如下：</h3><pre><code>.model small
 
 .stack 200h
