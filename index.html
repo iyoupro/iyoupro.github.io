@@ -89,7 +89,25 @@
 <div class="col-12 col-md-8 offset-md-2">
     <a href="/2019/06/30/binary/" class="h4" style="font-weight: 700;">汇编语言</a>
     
-      <p class="mb-1">汇编语言宏1、程序代码如下：.model small
+      <p class="mb-1">汇编语言写程序1、写一段子程序Trim，完成将一个字符串中的空格去除；字符串的地址作为参数传递，字符串的结束符0trim:
+
+​    mov al,[si]
+
+​    inc si
+
+​    or al,al
+
+​    ret
+
+​    cmp al,20h
+
+​    jz trim
+
+​    mov [di],al
+
+​    inc di
+
+​    jmp trim宏1、程序代码如下：.model small
 
 .stack 200h
 
@@ -99,27 +117,7 @@
 
 ​    y          WORD  15H
 
-​    r    WORD  2 dup(0)    
-
-.CODE
-
-multiply MACRO v1,v2,result
-
-​      push  dx
-
-​      push  ax
-
-​      mov   al,v1
-
-​      imul  v2
-
-​      mov   result,ax
-
-​      pop   ax
-
-​      pop   dx
-
-​     ...</p>
+​    r    W...</p>
     
     
       <p>
