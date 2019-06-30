@@ -87,6 +87,53 @@
 <div class="row mb-3">
 
 <div class="col-12 col-md-8 offset-md-2">
+    <a href="/2019/06/30/binary/" class="h4" style="font-weight: 700;">汇编语言</a>
+    
+      <p class="mb-1">汇编语言宏1、程序代码如下：.model small
+
+.stack 200h
+
+.data
+
+​    x         BYTE  3
+
+​    y          WORD  15H
+
+​    r    WORD  2 dup(0)    
+
+.CODE
+
+multiply MACRO v1,v2,result
+
+​      push  dx
+
+​      push  ax
+
+​      mov   al,v1
+
+​      imul  v2
+
+​      mov   result,ax
+
+​      pop   ax
+
+​      pop   dx
+
+​     ...</p>
+    
+    
+      <p>
+        <i class="iconfont icon-riqi2"></i>&nbsp;2019-06-30
+        &nbsp;
+        
+      </p>
+    
+</div>
+</div>
+
+<div class="row mb-3">
+
+<div class="col-12 col-md-8 offset-md-2">
     <a href="/2019/06/29/Rail-Fence-Cipher/" class="h4" style="font-weight: 700;">Rails Fence Cipher</a>
     
       <p class="mb-1">Rails Fence Cipher

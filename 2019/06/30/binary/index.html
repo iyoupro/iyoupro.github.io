@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content>
+    <meta name="author" content="IyouPro">
+    <meta name="keywords" content>
+    <title>汇编语言 ~ Iyou&#39;s blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/css/mdb.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1067060_vr10bjtg3us.css">
+    
+        <link rel="stylesheet" href="/css/Prettify/tomorrow-night-eighties.min.css">
+    
+</head>
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+<div class="container">
+    <a class="navbar-brand" href="/"><strong>Iyou&#39;s blog</strong></a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/archives/">Archives</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">About</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</nav>
+    <div class="view intro-2" style='background: url("https://i.imgur.com/oADD1Ip.jpg")no-repeat center center;background-size: cover;'>
+    <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+        <div class="container text-center white-text wow fadeInUp">
+            <p class="h2">汇编语言</p>
+            <br>
+            
+            <p>Sunday, June 30th 2019, 10:51 pm</p>
+            
+        </div>
+        </div>
+    </div>
+    </div>
+  </header>
+
+  <main>
+  
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 offset-md-2 ">
+            <div class="post-content py-5 z-depth-3 main">
+                <h1 id="汇编语言"><a href="#汇编语言" class="headerlink" title="汇编语言"></a>汇编语言</h1><h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><h3 id="1、程序代码如下："><a href="#1、程序代码如下：" class="headerlink" title="1、程序代码如下："></a>1、程序代码如下：</h3><pre><code>.model small
+
+.stack 200h
+
+.data
+
+​    x         BYTE  3
+
+​    y          WORD  15H
+
+​    r    WORD  2 dup(0)    
+
+.CODE
+
+multiply MACRO v1,v2,result
+
+​      push  dx
+
+​      push  ax
+
+​      mov   al,v1
+
+​      imul  v2
+
+​      mov   result,ax
+
+​      pop   ax
+
+​      pop   dx
+
+​      ENDM
+
+START:
+
+​        mov ax,@data
+
+​        mov ds,ax
+
+​        multiply x,x,r
+
+​        multiply x,y,r+1
+
+​        mov ah,4ch     
+
+​        int 21h
+
+END START</code></pre><p>a、第一个宏调用展开后的代码</p>
+<pre><code>push  dx
+push  ax
+mov   al,x
+imul  x
+mov   r,ax
+pop   ax
+pop   dx</code></pre><p>b、假如数据段的段地址是1000H，第二个宏调用乘法执行后ax和dx的值是多少？简明写出计算过程</p>
+<pre><code>ax = 3 * 15h = 3fh
+dx = 0000h</code></pre><p>c、程序执行完成后，按照地址从低到高顺序列出r的数据</p>
+<pre><code>09 00 3f 00</code></pre><h3 id="2、请用宏指令定义一个可显示字符串："><a href="#2、请用宏指令定义一个可显示字符串：" class="headerlink" title="2、请用宏指令定义一个可显示字符串："></a>2、请用宏指令定义一个可显示字符串：</h3><p>GOOD DB ‘Good students:class X NAME’</p>
+<p>其中X和NAME在宏调用时给出。</p>
+<pre><code>DISP_GOOD MACRO X, NAME 
+GOOD DB ‘GOOD STUDENTS: CLASS&amp;X &amp;NAME’, 0DH, 0AH, ‘$’
+ENDM </code></pre><h3 id="3、定义宏指令并展开宏调用："><a href="#3、定义宏指令并展开宏调用：" class="headerlink" title="3、定义宏指令并展开宏调用："></a>3、定义宏指令并展开宏调用：</h3><p>宏指令JOE把一串信息“MESSAGE NO.K”存入数据存储区XK中。</p>
+<p>宏调用：</p>
+<p>I=0</p>
+<p>JOE     TEXT,I</p>
+<p>JOE     TEXT,I</p>
+<p>JOE     TEXT,I</p>
+<pre><code>宏定义:
+MARY MACRO X, K
+X&amp;K DB ‘MESSAGE NO. &amp;K’ 
+ENDM 
+JOE MACRO A, I
+MARY A, %I I=I+1 
+ENDM 
+宏调用和宏展开：
+I=0 
+JOE TEXT, I
+1 TEXT0 DB ‘MESSAGE NO. 0’ 
+┇
+JOE TEXT, I 
+1 TEXT1 DB ‘MESSAGE NO. 1’ 
+┇ 
+JOE TEXT, I 
+1 TEXT2 DB ‘MESSAGE NO. 2’</code></pre><h2 id="程序分析"><a href="#程序分析" class="headerlink" title="程序分析"></a>程序分析</h2><p>根据所有给出的信息回答问题</p>
+<h3 id="1、程序段如下"><a href="#1、程序段如下" class="headerlink" title="1、程序段如下"></a>1、程序段如下</h3><p>.data</p>
+<p>First     byte     “12345”</p>
+<p>Second     byte      10 dup(?)</p>
+<p>.code</p>
+<p>Start:        </p>
+<p>Mov ax,@data</p>
+<p>Mov ds,ax</p>
+<p>Mov es,ax</p>
+<p>cld</p>
+<p>​                mov cx,10</p>
+<p>​                lea si,first</p>
+<p>​                lea di,second</p>
+<p>rep movsb</p>
+<p>mov ah,4ch</p>
+<p>int 21h</p>
+<p>end start</p>
+<p>A、程序执行结束后，second的值是？</p>
+<p>*<em>1234512345 *</em></p>
+<p>B、简单描述程序的执行过程</p>
+<p>​    si =&gt; 源串指针</p>
+<p>​    di =&gt; 目标串指针       </p>
+<p>​    first长度为5，当cx=5时，second的值为“12345”，所以最后si指向second，结果为1234512345</p>
+
+                <hr>
+                <div>
+                    <p>
+                        
+                    </p>
+                </div>
+                <br>
+                
+                    <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                
+            </div>
+        </div>
+        <div class="d-none d-md-block col-md-2">
+            
+  <div id="toc" class="py-5">
+    <p class="h6"><i class="iconfont icon-toc" style="vertical-align:middle"></i> Toc:</p> 
+    <div id="tocbot"></div>
+  </div>
+
+        </div>
+    </div>        
+</div>
+
+<br><br><br>
+
+<!-- Comments -->
+<div class="comments" id="comments">
+ 
+</div>
+  
+  </main>
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a target="_blank"><b>MADE IN</b></a>
+    <!--<i class="iconfont icon-love"></i>-->
+    <a href="https://github.com/iyoupro" target="_blank"> <b>IyouPro</b></a>
+  </div>
+</footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/jquery-3.3.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/mdb.min.js"></script>
+  <script src="/js/main.js"></script>
+  
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    
+    <script src="/js/post.js"></script>
+    
+      <script src="/js/plugins/prettify.js"></script>
+      <script>
+          $(document).ready(function(){
+              $('pre').addClass('prettyprint linenums');
+              prettyPrint();
+          })
+      </script>
+    
+  
+</body>
+</html>
