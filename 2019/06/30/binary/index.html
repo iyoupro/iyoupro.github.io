@@ -190,6 +190,27 @@ min1:
     loop next
     mov ah, 4ch
     int 21h
+end start</code></pre><h3 id="5、数据段数据x，将这个数据按照16进制输出"><a href="#5、数据段数据x，将这个数据按照16进制输出" class="headerlink" title="5、数据段数据x，将这个数据按照16进制输出"></a>5、数据段数据x，将这个数据按照16进制输出</h3><pre><code>start:
+  mov bx, ;自己定义
+  mov ch,4
+  mov cl,4
+
+fun1:
+  rol bx, cl
+  mov al, bl
+  and al, 0FH
+  cmp al, 9
+  jna fun2
+  add al, 7
+
+fun2:
+  add al,30H
+  int 10h
+  dec ch
+  jnz fun1
+
+  mov ah, 4ch
+  int 21h
 end start</code></pre><h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><h3 id="1、程序代码如下："><a href="#1、程序代码如下：" class="headerlink" title="1、程序代码如下："></a>1、程序代码如下：</h3><pre><code>.model small
 
 .stack 200h
