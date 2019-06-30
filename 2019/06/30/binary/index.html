@@ -102,7 +102,59 @@
 
 ​    inc di
 
-​    jmp trim</code></pre><h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><h3 id="1、程序代码如下："><a href="#1、程序代码如下：" class="headerlink" title="1、程序代码如下："></a>1、程序代码如下：</h3><pre><code>.model small
+​    jmp trim</code></pre><h3 id="2、从外部输入的一行数据放在str中；统计数据中的字母、数字和其他字符数，放在对应的变量中。"><a href="#2、从外部输入的一行数据放在str中；统计数据中的字母、数字和其他字符数，放在对应的变量中。" class="headerlink" title="2、从外部输入的一行数据放在str中；统计数据中的字母、数字和其他字符数，放在对应的变量中。"></a>2、从外部输入的一行数据放在str中；统计数据中的字母、数字和其他字符数，放在对应的变量中。</h3><p>数据定义</p>
+<p>.data</p>
+<p>str db 50,?,50 dup(0)</p>
+<p>alpha  db  ?   ;字母数</p>
+<p>digit  db  ?  ；数字数</p>
+<p>other  db  ?  ；其他字符数</p>
+<p>画出程序设计的流程图；写程序。</p>
+<pre><code>start:
+        mov ax, @data
+        mov ds, ax
+
+        lea dx, str
+        mov ah, 10
+        int 21h
+
+        mov cx, str+1
+        lea bx, word ptr str
+
+loop1:
+        mov al, [bx]
+        cmp al, &#39;a&#39;
+        jb next1
+        cmp al, &#39;z&#39;
+        ja next1
+        inc alpha
+        jmp exit
+
+next1:
+        cmp al, &#39;A&#39;
+        jb next2
+        cmp al, &#39;Z&#39;
+        ja next2
+        inc alpha
+        jmp exit
+
+next2:
+        cmp al, &#39;0&#39;
+        jb next3
+        cmp al, &#39;9&#39;
+        ja next3
+        inc digit
+        jmp exit
+
+next3:
+        inc other
+
+exit:
+        inc bx
+        loop loop1
+
+        mov ax, 4c00h
+        int 21h
+end start</code></pre><h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><h3 id="1、程序代码如下："><a href="#1、程序代码如下：" class="headerlink" title="1、程序代码如下："></a>1、程序代码如下：</h3><pre><code>.model small
 
 .stack 200h
 

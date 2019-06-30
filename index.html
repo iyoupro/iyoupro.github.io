@@ -107,17 +107,11 @@
 
 ​    inc di
 
-​    jmp trim宏1、程序代码如下：.model small
-
-.stack 200h
-
+​    jmp trim2、从外部输入的一行数据放在str中；统计数据中的字母、数字和其他字符数，放在对应的变量中。数据定义
 .data
-
-​    x         BYTE  3
-
-​    y          WORD  15H
-
-​    r    W...</p>
+str db 50,?,50 dup(0)
+alpha  db  ?   ;字母数
+digit  ...</p>
     
     
       <p>
