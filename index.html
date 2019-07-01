@@ -87,45 +87,6 @@
 <div class="row mb-3">
 
 <div class="col-12 col-md-8 offset-md-2">
-    <a href="/2019/06/30/binary/" class="h4" style="font-weight: 700;">汇编语言</a>
-    
-      <p class="mb-1">汇编语言写程序1、写一段子程序Trim，完成将一个字符串中的空格去除；字符串的地址作为参数传递，字符串的结束符0trim:
-
-​    mov al,[si]
-
-​    inc si
-
-​    or al,al
-
-​    ret
-
-​    cmp al,20h
-
-​    jz trim
-
-​    mov [di],al
-
-​    inc di
-
-​    jmp trim2、从外部输入的一行数据放在str中；统计数据中的字母、数字和其他字符数，放在对应的变量中。数据定义
-.data
-str db 50,?,50 dup(0)
-alpha  db  ?   ;字母数
-digit  ...</p>
-    
-    
-      <p>
-        <i class="iconfont icon-riqi2"></i>&nbsp;2019-06-30
-        &nbsp;
-        
-      </p>
-    
-</div>
-</div>
-
-<div class="row mb-3">
-
-<div class="col-12 col-md-8 offset-md-2">
     <a href="/2019/06/29/Rail-Fence-Cipher/" class="h4" style="font-weight: 700;">Rails Fence Cipher</a>
     
       <p class="mb-1">Rails Fence Cipher
