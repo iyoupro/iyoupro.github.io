@@ -359,7 +359,61 @@ next:    mov  al,dat1[bx]
 
 ​inc   di
 
-​loop next</code></pre>
+​loop next</code></pre><h3 id="4、源程序如下："><a href="#4、源程序如下：" class="headerlink" title="4、源程序如下："></a>4、源程序如下：</h3><p>mov   ax， seg  table </p>
+<p>mov   es，  ax</p>
+<p>mov   di，  offset  table</p>
+<p>mov   al， ‘0’</p>
+<p>mov   cx， 100</p>
+<p>cld</p>
+<p>repne  scasb</p>
+<h4 id="A、该段程序完成什么功能？"><a href="#A、该段程序完成什么功能？" class="headerlink" title="A、该段程序完成什么功能？"></a>A、该段程序完成什么功能？</h4><p>在table中查询是否有字符‘0’</p>
+<h4 id="B、该段程序执行完毕之后，ZF和CX有几种可能的数值？表示的含义分别是什么？"><a href="#B、该段程序执行完毕之后，ZF和CX有几种可能的数值？表示的含义分别是什么？" class="headerlink" title="B、该段程序执行完毕之后，ZF和CX有几种可能的数值？表示的含义分别是什么？"></a>B、该段程序执行完毕之后，ZF和CX有几种可能的数值？表示的含义分别是什么？</h4><p>ZF = 1, cx != 0 找到目标字符    </p>
+<p>ZF = 0, cx = 0 未找到目标字符</p>
+<h3 id="5、DATA中存放了一组无符号数据"><a href="#5、DATA中存放了一组无符号数据" class="headerlink" title="5、DATA中存放了一组无符号数据"></a>5、DATA中存放了一组无符号数据</h3><p>.data</p>
+<p>data1     db     60，70，28，9，10，25，97</p>
+<p>Len = $-data1</p>
+<p>avg     db     ?</p>
+<p>.code</p>
+<p>start：    mov ax,@data</p>
+<p>​        mov ds,ax</p>
+<p>​        mov cx,Len</p>
+<p>​        xor  ax，ax</p>
+<p>​        xor  dx，dx</p>
+<p>​        xor  si，si</p>
+<p>​        mov  bl,0    </p>
+<p>L1：    mov  dl，data[si]</p>
+<p>​        cmp  dl，50</p>
+<p>​        jc L2</p>
+<p>​        add   ax，dx</p>
+<p>​        inc bl</p>
+<p>L2：    inc   si</p>
+<p>​        loop  L1</p>
+<p>​        div bl            </p>
+<p>​        MOV   AVG，AL</p>
+<p>​        mov ah,4ch</p>
+<p>​        int 21h</p>
+<p>end start</p>
+<h4 id="A、程序的功能是什么？简单描述程序的执行流程"><a href="#A、程序的功能是什么？简单描述程序的执行流程" class="headerlink" title="A、程序的功能是什么？简单描述程序的执行流程"></a>A、程序的功能是什么？简单描述程序的执行流程</h4><p>将大于50的数累加求平均值</p>
+<h4 id="B、程序执行结束后，avg的值是-简单说明得到结果的过程"><a href="#B、程序执行结束后，avg的值是-简单说明得到结果的过程" class="headerlink" title="B、程序执行结束后，avg的值是? 简单说明得到结果的过程"></a>B、程序执行结束后，avg的值是? 简单说明得到结果的过程</h4><p>$$<br>AVG = (60+70+97)/3=75=4BH<br>$$</p>
+<h3 id="6、设X、Y、Z、V均为16位带符号数，分别装在X、Y、Z、V存储单元中，阅读如下程序段"><a href="#6、设X、Y、Z、V均为16位带符号数，分别装在X、Y、Z、V存储单元中，阅读如下程序段" class="headerlink" title="6、设X、Y、Z、V均为16位带符号数，分别装在X、Y、Z、V存储单元中，阅读如下程序段"></a>6、设X、Y、Z、V均为16位带符号数，分别装在X、Y、Z、V存储单元中，阅读如下程序段</h3><p>​    mov ax,X</p>
+<p>​    imul Y</p>
+<p>​    mov cx,ax</p>
+<p>​    mox bx,dx</p>
+<p>​    mov ax,Z</p>
+<p>​    cwd</p>
+<p>​    add cx,ax</p>
+<p>​    adc bx,dx</p>
+<p>​    sub cx,540</p>
+<p>​    sbb bx,0</p>
+<p>​    mov ax,V</p>
+<p>​    cwd</p>
+<p>​    sub ax,cx</p>
+<p>​    sbb dx,bx</p>
+<p>​    idiv X</p>
+<h4 id="A、写出程序表示的计算公式"><a href="#A、写出程序表示的计算公式" class="headerlink" title="A、写出程序表示的计算公式"></a>A、写出程序表示的计算公式</h4><hr>
+<p>$$<br>(V-(X*Y+Z-540))/X<br>$$</p>
+<h4 id="B、运算结果如何表达"><a href="#B、运算结果如何表达" class="headerlink" title="B、运算结果如何表达"></a>B、运算结果如何表达</h4><p>商是存在ax寄存器，余数在dx寄存器中</p>
+
                 <hr>
                 <div>
                     <p>
