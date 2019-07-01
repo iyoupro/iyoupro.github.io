@@ -413,6 +413,141 @@ next:    mov  al,dat1[bx]
 <h4 id="A、写出程序表示的计算公式"><a href="#A、写出程序表示的计算公式" class="headerlink" title="A、写出程序表示的计算公式"></a>A、写出程序表示的计算公式</h4><hr>
 <p>$$<br>(V-(X*Y+Z-540))/X<br>$$</p>
 <h4 id="B、运算结果如何表达"><a href="#B、运算结果如何表达" class="headerlink" title="B、运算结果如何表达"></a>B、运算结果如何表达</h4><p>商是存在ax寄存器，余数在dx寄存器中</p>
+<h2 id="程序和运行截图分析"><a href="#程序和运行截图分析" class="headerlink" title="程序和运行截图分析"></a><strong>程序和运行截图分析</strong></h2><h3 id="1、汇编语言源程序和汇编之后的代码如下"><a href="#1、汇编语言源程序和汇编之后的代码如下" class="headerlink" title="1、汇编语言源程序和汇编之后的代码如下"></a><strong>1、汇编语言源程序和汇编之后的代码如下</strong></h3><p>.model small</p>
+<p>.data</p>
+<p>​    a     BYTE  30</p>
+<p>​    b     BYTE  20H</p>
+<p>​    m     BYTE  ?    </p>
+<p>.CODE</p>
+<p>START:    mov ax,@data</p>
+<p>​            mov ds,ax</p>
+<p>​            mov al,a</p>
+<p>​            cmp al,b</p>
+<p>​            jc l2</p>
+<p>l1:</p>
+<pre><code>           mov al,b</code></pre><p>l2:</p>
+<pre><code>           mov m,al        </code></pre><p>​            </p>
+<p>​            mov ah,4ch     </p>
+<p>​            int 21h</p>
+<p>END START</p>
+<p><img src="/Users/iyou/study/blog/myblog/source/_posts/bi1.jpg" alt="bi1"> </p>
+<p>根据程序源代码和汇编语言宏汇编之后的代码形式，回答问题</p>
+<p>1、代码段的实际大小是（     <strong>27</strong>        ）字节</p>
+<p>2、a的物理地址是（     <strong>1CA6CH</strong>       ）</p>
+<p>3、程序运行到ip=0016H时，变量 m的值是 （       <strong>1EH</strong>         ）</p>
+<p>4、程序的功能是找出a和b的（   <strong>A</strong>   ）</p>
+<pre><code> A、小的值               B、大的值</code></pre><h3 id="2、汇编语言源程序和汇编之后的代码如下"><a href="#2、汇编语言源程序和汇编之后的代码如下" class="headerlink" title="2、汇编语言源程序和汇编之后的代码如下"></a><strong>2、汇编语言源程序和汇编之后的代码如下</strong></h3><p>.model small</p>
+<p>.data</p>
+<p>​    a         BYTE  30,1,2,3,4,20H,-5,90,$-a,75,$-a</p>
+<p>​    L         EQU  $-a</p>
+<p>​    s         BYTE  0    </p>
+<p>.CODE</p>
+<p>START:</p>
+<p>​    mov ax,@data</p>
+<p>​    mov ds,ax    </p>
+<p>​    mov cx,L</p>
+<p>​    mov bx,0</p>
+<p>​    mov ax,0</p>
+<p>L1:</p>
+<pre><code>   add al,a[bx]
+
+   inc bx
+
+   loop L1
+
+   mov s,al        </code></pre><p>​    mov ah,4ch     </p>
+<p>​    int 21h</p>
+<p>END START</p>
+<p><img src="/Users/iyou/study/blog/myblog/source/_posts/bi2.jpg" alt="bi2"></p>
+<p>根据程序源代码和汇编语言宏汇编之后的代码形式，回答问题</p>
+<p>1、变量s的物理地址是 （    <strong>1CA6BH</strong>     ）</p>
+<p>2、cx=5的时候，al的值是（   <strong>48H</strong>       ）或者（   <strong>43H</strong>      ）</p>
+<p>3、数组a的最后一个数值是（    <strong>0AH</strong>     ）</p>
+<h3 id="3、汇编语言源程序和汇编之后的代码如下"><a href="#3、汇编语言源程序和汇编之后的代码如下" class="headerlink" title="3、汇编语言源程序和汇编之后的代码如下"></a><strong>3、汇编语言源程序和汇编之后的代码如下</strong></h3><p>.model small</p>
+<p>.stack 20</p>
+<p>.data</p>
+<p>​    a db ‘this is a test’</p>
+<p>​    b db 16,15,17h        </p>
+<p>.CODE</p>
+<p>START:</p>
+<p>​    mov ax,@data</p>
+<p>​    mov ds,ax</p>
+<p>​    mov ax,offset a</p>
+<p>​    mov bx,offset b</p>
+<p>​    mov ah,4ch</p>
+<p>​    int 21h</p>
+<p>END START</p>
+<p><img src="/Users/iyou/study/blog/myblog/source/_posts/bi3.jpg" alt="bi3"></p>
+<p>根据程序源代码和汇编语言宏汇编之后的代码形式，回答问题</p>
+<p>1、代码段的实际大小是</p>
+<p><strong>14字节</strong></p>
+<p>2、数据段的段地址是</p>
+<p><strong>1CA6H</strong></p>
+<p>3、变量a的物理地址是</p>
+<p><strong>1CA60H</strong></p>
+<p>4、d ds：000F反馈的值是</p>
+<p><strong>0F 17</strong></p>
+<p>5、堆栈占据的内存空间的物理地址范围是    </p>
+<p><strong>1CA80H-1CA94H</strong></p>
+<h3 id="4、汇编语言源程序"><a href="#4、汇编语言源程序" class="headerlink" title="4、汇编语言源程序"></a><strong>4、汇编语言源程序</strong></h3><p>.stack 200h</p>
+<p>.data</p>
+<p>​    x         BYTE  30</p>
+<p>​    y          WORD  55H    </p>
+<p>.CODE</p>
+<p>START:        mov ax,@data</p>
+<p>​                mov ds,ax    </p>
+<p>​                mov    al,x    </p>
+<p>​                call        pcount        </p>
+<p>​                mov    cl,dl    </p>
+<p>​                 mov    ax,y        </p>
+<p>​                 call        pcount        </p>
+<p>​                mov    ch,dl        </p>
+<p>​                mov ah,4ch     </p>
+<p>​                int 21h</p>
+<p>​    pcount    proc                </p>
+<pre><code>   push    cx        </code></pre><p>​                pushf                </p>
+<p>​                mov    cx,16    </p>
+<p>​                mov    dl,0        </p>
+<p>L1:            ror        ax,1        </p>
+<p>​                jnc        L2        </p>
+<p>​                inc        dl        </p>
+<p>L2:            loop    L1        </p>
+<p>​                popf        </p>
+<p>​                pop        cx        </p>
+<p>​                ret                </p>
+<p>pcount    endp         </p>
+<p>end start</p>
+<p><img src="/Users/iyou/study/blog/myblog/source/_posts/bi4.png" alt="bi4"></p>
+<p>1、第一次call 指令执行后，堆栈的栈顶的值是（     <strong>0010H</strong>        ）</p>
+<p>2、ip=0017H时，cx的值是（       <strong>0407H</strong>        ）</p>
+<h3 id="5、汇编语言程序"><a href="#5、汇编语言程序" class="headerlink" title="5、汇编语言程序"></a><strong>5、汇编语言程序</strong></h3><p>DATA    SEGMENT</p>
+<p>X1      DW  28H</p>
+<p>X2      DW  38H</p>
+<p>X3      DW  48H</p>
+<p>Y       DW  ?</p>
+<p>DATA    ENDS</p>
+<p>CODE    SEGMENT</p>
+<p>​        ASSUME  CS:CODE,DS:DATA</p>
+<p>START:  MOV  AX,DATA</p>
+<p>​        MOV  DS,AX</p>
+<p>​        </p>
+<p>​        MOV  AX,X1 </p>
+<p>​        ADD  AX,X2 </p>
+<p>​        ADD  AX,X3 </p>
+<p>​        MOV  Y,AX  </p>
+<p>​        </p>
+<p>​        MOV  AH,4CH</p>
+<p>​        INT  21H</p>
+<p>CODE    ENDS</p>
+<p>​        END  START</p>
+<p><img src="/Users/iyou/study/blog/myblog/source/_posts/bi5.jpg" alt="bi5"></p>
+<p>回答问题：</p>
+<p>1、两个部分相互对照，x1的物理地址是（    <strong>1CA50H</strong>           ）</p>
+<p>2、x2的物理地址是（       <strong>1CA52H</strong>         ），x3的逻辑地址表达是（    <strong>1CA5:0004H</strong>           ） </p>
+<p>3、程序执行 cs：0005 指令后，寄存器ah=（ <strong>00H</strong>    ），al=（   <strong>28H</strong>      ） </p>
+<p>4、继续执行下一条指令后，寄存器ah=（    <strong>00H</strong>    ），al=（    <strong>60H</strong>       ）</p>
+<p>5、执行cs：0010指令后，数据存放的内存的物理地址是（     <strong>1CA56H</strong>       ），对应的变量是（  <strong>Y</strong>   ）</p>
+<p>6、按照这个内存分配的模型，数据段最多还可以放置（    <strong>4</strong>      ）个相同类型的变量。理由</p>
 
                 <hr>
                 <div>
