@@ -19,17 +19,19 @@
     <meta name="description" content>
     <meta name="author" content="IyouPro">
     <meta name="keywords" content>
-    <title>Archive ~ Iyou&#39;s blog</title>
+    <title>攻防世界wp ~ Iyou&#39;s blog</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/css/mdb.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1067060_vr10bjtg3us.css">
     
+        <link rel="stylesheet" href="/css/Prettify/tomorrow-night-eighties.min.css">
+    
 </head>
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
 <div class="container">
     <a class="navbar-brand" href="/"><strong>Iyou&#39;s blog</strong></a>
@@ -61,12 +63,14 @@
 
 
 </nav>
-    <div class="view intro-2" style='background: url("https://s2.ax1x.com/2019/06/29/ZQ3RLq.jpg")no-repeat center center;background-size: cover;'>
+    <div class="view intro-2" style='background: url("https://i.imgur.com/oADD1Ip.jpg")no-repeat center center;background-size: cover;'>
     <div class="full-bg-img">
         <div class="mask rgba-black-light flex-center">
         <div class="container text-center white-text wow fadeInUp">
-            <p class="h2">Archive</p>
+            <p class="h2">攻防世界wp</p>
             <br>
+            
+            <p>Saturday, July 13th 2019, 3:05 pm</p>
             
         </div>
         </div>
@@ -75,106 +79,56 @@
   </header>
 
   <main>
-    
-  <div class="container">
-    <div class="py-5 z-depth-3 main">
-      
-      <div class="container">
-        <div class="row">
-          <div class="col-10 offset-1">
-            
+  
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 offset-md-2 ">
+            <div class="post-content py-5 z-depth-3 main">
+                <h1 id="攻防世界wp"><a href="#攻防世界wp" class="headerlink" title="攻防世界wp"></a>攻防世界wp</h1><h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><h3 id="enc"><a href="#enc" class="headerlink" title="enc"></a>enc</h3><p>题目是由 ZERO 和 ONE 组成的二进制编码，如下：<br><img src="https://i.loli.net/2019/07/13/5d2986f6aa1ba13253.png" alt="enc1"></p>
+<p>0x00</p>
+<p>首先将 ZERO 和 ONE 替换成 0 和 1，再转成字符串</p>
+<p>得到 <code>Li0gLi0uLiAuIC0uLi0gLS4tLiAtIC4uLS4gLSAuLi4uIC4tLS0tIC4uLi4uIC0tLSAuLS0tLSAuLi4gLS0tIC4uLi4uIC4uLSAuLS0uIC4uLi0tIC4tLiAtLS0gLi4uLi4gLiAtLi0uIC4tLiAuLi4tLSAtIC0tLSAtIC0uLi0gLQ==</code></p>
+<p>0x01</p>
+<p>由此可以看出这是base64编码，我们用工具decode<br><img src="https://i.loli.net/2019/07/13/5d2986f546f7214090.png" alt="enc2"></p>
+<p>0x02</p>
+<p>得到摩丝密码，再decode<br><img src="https://i.loli.net/2019/07/13/5d2986f6149fb20590.png" alt="enc3"><br>0x03</p>
+<p>得到结果：<code>alexctfth15o1so5up3ro5ecr3totxt</code></p>
+<p>提交说答案不正确，换成大写还是不成功</p>
+<p>因为摩丝密码不能处理特殊字符，需要自己手动添加</p>
+<p><strong><code>ALEXCTF{TH15_1S_5UP3R_5ECR3T_TXT}</code></strong></p>
 
-    
-        
-            
-        
-    
-
-    
-        
-            
-        
-    
-
-
-
-
-<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-<li class="nav-item mr-2">
-    <a class="nav-link active" id="pills-All-tab" data-toggle="pill" href="#pills-All" role="tab"
-    aria-controls="pills-home" aria-selected="true">ALL</a>
-</li>
-
-<li class="nav-item mr-2">
-    <a class="nav-link" id="pills-cjy173zjr0003zo2ghd7kgrbc-tab" data-toggle="pill" href="#pills-cjy173zjr0003zo2ghd7kgrbc" role="tab"
-    aria-controls="pills-cjy173zjr0003zo2ghd7kgrbc" aria-selected="false">CTF</a>
-</li>
-
-<li class="nav-item mr-2">
-    <a class="nav-link" id="pills-cjy173zjt0004zo2g99cpuog9-tab" data-toggle="pill" href="#pills-cjy173zjt0004zo2g99cpuog9" role="tab"
-    aria-controls="pills-cjy173zjt0004zo2g99cpuog9" aria-selected="false">Cipher</a>
-</li>
-
-</ul>
-<div class="tab-content pt-2 pl-1" id="pills-tabContent">
-    <div class="tab-pane fade show active" id="pills-All" role="tabpanel" aria-labelledby="pills-all-tab">
-        <p>Total: 2</p>
-        <hr>
-        
-            
-                
-                    
-                    
-                    <p class="h5">2019</p>
-                    <div class="list-group">
-                
-                <a href="/2019/06/29/Rail-Fence-Cipher/" class="list-group-item list-group-item-action">
-                    <span class="archive-post-title">Rails Fence Cipher</span>
-                    <span style="float: right;">06-29</span>
-                </a>
-            
-            </div>
-        
-        
-    </div>
-    
-        
-        <div class="tab-pane fade" id="pills-cjy173zjr0003zo2ghd7kgrbc" role="tabpanel" aria-labelledby="pills-cjy173zjr0003zo2ghd7kgrbc-tab">
-                                            
-                
-                    
-                
-            
-            </div>
-        </div>
-    
-        
-        <div class="tab-pane fade" id="pills-cjy173zjt0004zo2g99cpuog9" role="tabpanel" aria-labelledby="pills-cjy173zjt0004zo2g99cpuog9-tab">
-                                            
-                
-                    
+                <hr>
+                <div>
+                    <p>
+                         
+                        <span class="badge badge-light">#&nbsp;CTF</span>
+                        &nbsp;
                         
-                            
-                            
-                            <p class="h5">2019</p>
-                            <div class="list-group">
-                        
-                        <a href="/2019/06/29/Rail-Fence-Cipher/" class="list-group-item list-group-item-action">
-                            <span class="archive-post-title">Rails Fence Cipher</span>
-                            <span style="float: right;">06-29</span>
-                        </a>
-                    
+                    </p>
+                </div>
+                <br>
                 
-            
+                    <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                
             </div>
         </div>
-    
-</div>
-          </div>
-        </div>
-      </div>
-    </div>
+        <div class="d-none d-md-block col-md-2">
+            
+  <div id="toc" class="py-5">
+    <p class="h6"><i class="iconfont icon-toc" style="vertical-align:middle"></i> Toc:</p> 
+    <div id="tocbot"></div>
   </div>
+
+        </div>
+    </div>        
+</div>
+
+<br><br><br>
+
+<!-- Comments -->
+<div class="comments" id="comments">
+ 
+</div>
   
   </main>
 
@@ -192,6 +146,20 @@
   <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.7.4/js/mdb.min.js"></script>
   <script src="/js/main.js"></script>
+  
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    
+    <script src="/js/post.js"></script>
+    
+      <script src="/js/plugins/prettify.js"></script>
+      <script>
+          $(document).ready(function(){
+              $('pre').addClass('prettyprint linenums');
+              prettyPrint();
+          })
+      </script>
+    
   
 </body>
 </html>
