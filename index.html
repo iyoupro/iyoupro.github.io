@@ -93,14 +93,22 @@
 <div class="col-12 col-md-8 ">
     <a href="/2019/07/13/攻防世界wp/" class="h4" style="font-weight: 700;">攻防世界wp</a>
     
-      <p class="mb-1">攻防世界wpCryptoenc题目是由 ZERO 和 ONE 组成的二进制编码，如下：
-0x00
-首先将 ZERO 和 ONE 替换成 0 和 1，再转成字符串
-得到 Li0gLi0uLiAuIC0uLi0gLS4tLiAtIC4uLS4gLSAuLi4uIC4tLS0tIC4uLi4uIC0tLSAuLS0tLSAuLi4gLS0tIC4uLi4uIC4uLSAuLS0uIC4uLi0tIC4tLiAtLS0gLi4uLi4gLiAtLi0uIC4tLiAuLi4tLSAtIC0tLSAtIC0uLi0gLQ==
-0x01
-由此可以看出这是base64编码，我们用工具decode
-0x02
-...</p>
+      <p class="mb-1">攻防世界wpPwndice_game拿到题目先查看下保护
+
+再运行下程序，可以看出是一个猜数字的游戏
+
+用ida打开，猜对50次即可得到flag
+
+
+read函数存在栈溢出，覆盖seed随机数种子为0或1，srand构造伪随机数，get flag
+exp:
+#!/usr/bin/python
+# -*- coding:utf-8 -*-
+
+from pwn import *
+from ctypes import *
+p=remote(&#39;111.198.29.45&#39;,&#39;36448&#39;)
+libc = cdll.LoadLibrary(&quot;libc.so.6&...</p>
     
     
       <p>
